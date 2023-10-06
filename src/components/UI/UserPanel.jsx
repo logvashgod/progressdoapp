@@ -3,9 +3,11 @@ import React from "react";
 function UserPanel({ userStats }) {
   return (
     <div>
-      <b>Ваша стастика</b>
-      <h1>Уровень: {userStats.level}</h1>
-      <h2>Опыт: {userStats.experience}</h2>
+      <b>Your stats</b>
+      <h1>Lv.: {userStats.level}</h1>
+      <h2>
+        XP: {userStats.experience} of {userStats.experienceNeed}
+      </h2>
     </div>
   );
 }

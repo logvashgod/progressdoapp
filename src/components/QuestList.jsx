@@ -1,7 +1,7 @@
 import React from "react";
 import QuestItem from "./QuestItem";
 
-function QuestList({ quests, completeQuest }) {
+function QuestList({ quests, completeQuest, deleteQuest }) {
   return (
     <div>
       <h1>Список заданий</h1>
@@ -11,6 +11,7 @@ function QuestList({ quests, completeQuest }) {
             quest={quest}
             key={quest.id}
             completeQuest={completeQuest}
+            deleteQuest={deleteQuest}
           />
         );
       })}

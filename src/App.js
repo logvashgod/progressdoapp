@@ -48,13 +48,19 @@ function App() {
     if (experience >= experienceNeed) {
       nextLevel++;
       nextExperienceNeed = experienceNeed + 75;
-      experienceToZero = 0; // Обнуляем опыт после достижения нового уровня.
+      experienceToZero = 0; // Обнуляем опыт после достижения нового уровня
     }
     return {
       level: nextLevel,
       experienceNeed: nextExperienceNeed,
       experienceToZero: experienceToZero,
     };
+  };
+
+  //удаление задачи из списка и массива
+
+  const deleteQuest = (id) => {
+    setQuests(quests.filter((quest) => quest.id !== id));
   };
 
   return (
@@ -65,7 +71,11 @@ function App() {
         completeQuest={completeQuest}
         userStats={userStats}
       />
-      <QuestList quests={quests} completeQuest={completeQuest} />
+      <QuestList
+        quests={quests}
+        completeQuest={completeQuest}
+        deleteQuest={deleteQuest}
+      />
     </div>
   );
 }
