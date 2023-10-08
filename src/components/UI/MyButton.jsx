@@ -6,7 +6,11 @@ function MyButton({ completeQuest, deleteQuest }) {
     completeQuest();
   };
 
-  return <button onClick={handleOnClick}>Done!</button>;
+  return (
+    <button class="btn btn-outline-success" onClick={handleOnClick}>
+      Done!
+    </button>
+  );
 }
 
 export default MyButton;

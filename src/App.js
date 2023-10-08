@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
 import QuestList from "./components/QuestList";
 import UserPanel from "./components/UI/UserPanel";
+import NavBar from "./components/UI/NavBar";
+import CompletedQuestList from "./components/CompletedQuestList";
 
 function App() {
   const [quests, setQuests] = useState([
@@ -9,14 +12,25 @@ function App() {
       title: "Закончить приложение",
       body: "Нужно закончить это приложение в сроки",
       expValue: 50,
+      completedDate: null,
     },
     {
       id: Math.floor(Math.random() * 1000),
       title: "Попить кофе",
       body: "Пей кофе или чай на выбор",
       expValue: 10,
+      completedDate: null,
+    },
+    {
+      id: Math.floor(Math.random() * 1000),
+      title: "Уборка ванной комнаты",
+      body: "Очистить унитаз, раковину и ванну от грязи и пыли. Помыть полы и вытереть зеркало. Заменить полотенца и заправить кровать.",
+      expValue: 30,
+      completedDate: null,
     },
   ]);
+
+  const [completedQuests, setCompletedQuests] = useState([]);
 
   const [userStats, setUserStats] = useState({
     experience: 0,
@@ -24,7 +38,7 @@ function App() {
     experienceNeed: 100,
   });
 
-  const completeQuest = (expValue) => {
+  const completeQuest = (expValue, quest) => {
     setUserStats((prevState) => {
       const newExperience = prevState.experience + expValue;
       const { level, experienceNeed, experienceToZero } = getLevel(
@@ -32,6 +46,17 @@ function App() {
         newExperience,
         prevState.level
       );
+
+      const completedQuestsItem = {
+        ...quest,
+        completedDate: new Date().toLocaleString(),
+      };
+
+      setCompletedQuests((prevCompletedQuests) => [
+        ...prevCompletedQuests,
+        completedQuestsItem,
+      ]);
+
       return {
         ...prevState,
         experience: experienceToZero,
@@ -57,25 +82,20 @@ function App() {
     };
   };
 
-  //удаление задачи из списка и массива
-
   const deleteQuest = (id) => {
     setQuests(quests.filter((quest) => quest.id !== id));
   };
 
   return (
-    <div className="App">
-      <UserPanel
-        quests={quests}
-        getLevel={getLevel}
-        completeQuest={completeQuest}
-        userStats={userStats}
-      />
+    <div>
+      <NavBar />
+      <UserPanel userStats={userStats} />
       <QuestList
         quests={quests}
         completeQuest={completeQuest}
         deleteQuest={deleteQuest}
       />
+      <CompletedQuestList completedQuests={completedQuests} />
     </div>
   );
 }

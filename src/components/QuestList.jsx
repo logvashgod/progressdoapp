@@ -5,16 +5,14 @@ function QuestList({ quests, completeQuest, deleteQuest }) {
   return (
     <div>
       <h1>Список заданий</h1>
-      {quests.map((quest) => {
-        return (
-          <QuestItem
-            quest={quest}
-            key={quest.id}
-            completeQuest={completeQuest}
-            deleteQuest={deleteQuest}
-          />
-        );
-      })}
+      {quests.map((quest) => (
+        <QuestItem
+          quest={quest}
+          key={quest.id}
+          completeQuest={() => completeQuest(quest.expValue, quest)} //тут я передал quest после мапа в App.js
+          deleteQuest={deleteQuest}
+        />
+      ))}
     </div>
   );
 }
