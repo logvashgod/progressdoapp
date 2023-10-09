@@ -1,42 +1,70 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react"; // Удалите эту строку
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useSelector, useDispatch } from "react-redux";
+import { setQuests, setCompletedQuests, setUserStats } from "./appSlice";
 import QuestList from "./components/QuestList";
 import UserPanel from "./components/UI/UserPanel";
 import NavBar from "./components/UI/NavBar";
 import CompletedQuestList from "./components/CompletedQuestList";
 
 function App() {
-  const [quests, setQuests] = useState([
-    {
-      id: Math.floor(Math.random() * 1000),
-      title: "Закончить приложение",
-      body: "Нужно закончить это приложение в сроки",
-      expValue: 50,
-      completedDate: null,
-    },
-    {
-      id: Math.floor(Math.random() * 1000),
-      title: "Попить кофе",
-      body: "Пей кофе или чай на выбор",
-      expValue: 10,
-      completedDate: null,
-    },
-    {
-      id: Math.floor(Math.random() * 1000),
-      title: "Уборка ванной комнаты",
-      body: "Очистить унитаз, раковину и ванну от грязи и пыли. Помыть полы и вытереть зеркало. Заменить полотенца и заправить кровать.",
-      expValue: 30,
-      completedDate: null,
-    },
-  ]);
+  const quests = useSelector((state) => state.app.quests);
+  const completedQuests = useSelector((state) => state.app.completedQuests);
+  const userStats = useSelector((state) => state.app.userStats);
+  const dispatch = useDispatch();
 
-  const [completedQuests, setCompletedQuests] = useState([]);
+  useEffect(() => {
+    dispatch(setQuests());
+    dispatch(setCompletedQuests());
+    dispatch(
+      setUserStats({
+        experience: 0,
+        level: 1,
+        experienceNeed: 100,
+      })
+    );
+  }, [dispatch]);
 
-  const [userStats, setUserStats] = useState({
-    experience: 0,
-    level: 1,
-    experienceNeed: 100,
-  });
+  // const [quests, setQuests] = useState([
+  //   {
+  //     id: Math.floor(Math.random() * 1000),
+  //     title: "Закончить приложение",
+  //     body: "Нужно закончить это приложение в сроки",
+  //     expValue: 50,
+  //     completedDate: null,
+  //   },
+  //   {
+  //     id: Math.floor(Math.random() * 1000),
+  //     title: "Попить кофе",
+  //     body: "Пей кофе или чай на выбор",
+  //     expValue: 10,
+  //     completedDate: null,
+  //   },
+  //   {
+  //     id: Math.floor(Math.random() * 1000),
+  //     title: "Уборка ванной комнаты",
+  //     body: "Очистить унитаз, раковину и ванну от грязи и пыли. Помыть полы и вытереть зеркало. Заменить полотенца и заправить кровать.",
+  //     expValue: 50,
+  //     completedDate: null,
+  //   },
+  //   {
+  //     id: Math.floor(Math.random() * 1000),
+  //     title: "Приготовить ужин и съесть",
+  //     body: "Сделай это",
+  //     expValue: 5,
+  //     completedDate: null,
+  //   },
+  // ]);
+
+  // const [completedQuests, setCompletedQuests] = useState([]);
+
+  // const [userStats, setUserStats] = useState({
+  //   experience: 0,
+  //   level: 1,
+  //   experienceNeed: 100,
+  // });
+
+  // const [achievements, setAchievements] = useState([]);
 
   const completeQuest = (expValue, quest) => {
     setUserStats((prevState) => {
@@ -57,6 +85,7 @@ function App() {
         completedQuestsItem,
       ]);
 
+      const experienceChange = newExperience - prevState.experience;
       return {
         ...prevState,
         experience: experienceToZero,

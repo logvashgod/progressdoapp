@@ -7,7 +7,7 @@ function MyButton({ completeQuest, deleteQuest }) {
   };
 
   return (
-    <button class="btn btn-outline-success" onClick={handleOnClick}>
+    <button class="btn btn-outline-light" onClick={handleOnClick}>
       Done!
     </button>
   );
