@@ -1,13 +1,13 @@
 import React from "react";
 
-function MyButton({ completeQuest, deleteQuest }) {
+function MyButton({ completeQuest, onDeleteQuest, expValue, quest }) {
   const handleOnClick = () => {
-    deleteQuest();
-    completeQuest();
+    completeQuest(expValue, quest); // Передаем expValue и quest как два отдельных аргумента
+    onDeleteQuest(quest.id); // Передаем аргумент для удаления квеста
   };
 
   return (
-    <button class="btn btn-outline-light" onClick={handleOnClick}>
+    <button className="btn btn-outline-light" onClick={handleOnClick}>
       Done!
     </button>
   );

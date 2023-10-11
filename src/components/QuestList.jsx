@@ -1,7 +1,16 @@
-import React from "react";
 import QuestItem from "./QuestItem";
 
-function QuestList({ quests, completeQuest, deleteQuest }) {
+function QuestList({ quests, completeQuest, onDeleteQuest }) {
+  // Проверяем, есть ли quests, прежде чем вызывать map
+  if (!quests || quests.length === 0) {
+    return (
+      <div>
+        <h1>Список заданий</h1>
+        <p>Список заданий пуст.</p>
+      </div>
+    );
+  }
+
   return (
     <div>
       <h1>Список заданий</h1>
@@ -11,7 +20,7 @@ function QuestList({ quests, completeQuest, deleteQuest }) {
             quest={quest}
             key={quest.id}
             completeQuest={() => completeQuest(quest.expValue, quest)}
-            deleteQuest={deleteQuest}
+            onDeleteQuest={onDeleteQuest}
           />
         ))}
       </div>

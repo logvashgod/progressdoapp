@@ -1,7 +1,7 @@
 import React from "react";
 import MyButton from "./UI/MyButton";
 
-function QuestItem({ quest, completeQuest, deleteQuest }) {
+function QuestItem({ quest, completeQuest, onDeleteQuest }) {
   return (
     <div className="col-md-4 mb-4">
       {" "}
@@ -13,8 +13,10 @@ function QuestItem({ quest, completeQuest, deleteQuest }) {
           <p className="card-text">{quest.body}</p>
           <p className="card-text">+{quest.expValue} XP</p>
           <MyButton
-            completeQuest={() => completeQuest(quest.expValue, quest)}
-            deleteQuest={() => deleteQuest(quest.id)}
+            completeQuest={completeQuest}
+            onDeleteQuest={onDeleteQuest}
+            expValue={quest.expValue}
+            quest={quest}
           />
         </div>
       </div>
