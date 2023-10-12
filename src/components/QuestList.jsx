@@ -1,29 +1,43 @@
+import CategoriesList from "./CategoriesList";
 import QuestItem from "./QuestItem";
 
-function QuestList({ quests, completeQuest, onDeleteQuest }) {
-  // Проверяем, есть ли quests, прежде чем вызывать map
-  if (!quests || quests.length === 0) {
-    return (
-      <div>
-        <h1>Список заданий</h1>
-        <p>Список заданий пуст.</p>
-      </div>
-    );
-  }
+function QuestList({
+  quests,
+  completeQuest,
+  onDeleteQuest,
+  categories,
+  activeCategory,
+  onCategoryChange,
+}) {
+  const filteredQuests = quests.filter((quest) => {
+    return activeCategory === "ALL" || quest.category === activeCategory;
+  });
 
   return (
     <div>
       <h1>Список заданий</h1>
-      <div className="row">
-        {quests.map((quest) => (
-          <QuestItem
-            quest={quest}
-            key={quest.id}
-            completeQuest={() => completeQuest(quest.expValue, quest)}
-            onDeleteQuest={onDeleteQuest}
-          />
-        ))}
-      </div>
+      <CategoriesList
+        categories={categories}
+        activeCategory={activeCategory}
+        onCategoryChange={onCategoryChange}
+        style={{
+          display: categories && categories.length > 0 ? "block" : "none",
+        }}
+      />
+      {filteredQuests.length > 0 ? (
+        <div className="row">
+          {filteredQuests.map((quest) => (
+            <QuestItem
+              quest={quest}
+              key={quest.id}
+              completeQuest={() => completeQuest(quest.expValue, quest)}
+              onDeleteQuest={onDeleteQuest}
+            />
+          ))}
+        </div>
+      ) : (
+        <p>Список заданий пуст.</p>
+      )}
     </div>
   );
 }

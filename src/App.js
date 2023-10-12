@@ -26,20 +26,50 @@ function App() {
     initialQuests || [
       {
         id: Math.floor(Math.random() * 1000),
-        title: "Закончить приложение",
-        body: "Нужно закончить это приложение в сроки",
+        title: "Выпить кофе",
+        body: "Ммм... Вкусное кофе",
         expValue: 50,
+        category: "Frontend",
         completedDate: null,
       },
       {
         id: Math.floor(Math.random() * 1000),
-        title: "Приготовить ужин и съесть",
-        body: "Сделай это",
-        expValue: 5,
+        title: "Продолжить изучать React",
+        body: "Практиковаться в React",
+        expValue: 30,
+        category: "Frontend",
+        completedDate: null,
+      },
+      {
+        id: Math.floor(Math.random() * 1000),
+        title: "Изучить новые CSS техники",
+        body: "Попробовать Flexbox и Grid",
+        expValue: 40,
+        category: "Frontend",
+        completedDate: null,
+      },
+      {
+        id: Math.floor(Math.random() * 1000),
+        title: "Решить задачи на LeetCode",
+        body: "Улучшить алгоритмические навыки",
+        expValue: 60,
+        category: "Algorithms",
+        completedDate: null,
+      },
+      {
+        id: Math.floor(Math.random() * 1000),
+        title: "Пройти курс по Node.js",
+        body: "Углубить знания о Node.js",
+        expValue: 70,
+        category: "Backend",
         completedDate: null,
       },
     ]
   );
+
+  const addQuest = () => {
+    const newQuest = {};
+  };
 
   const [completedQuests, setCompletedQuests] = useState(
     initialCompletedQuests || []
@@ -52,6 +82,20 @@ function App() {
       experienceNeed: 100,
     }
   );
+
+  const [categories, setCategories] = useState([
+    "ALL",
+    "Frontend",
+    "Backend",
+    "Algorithms",
+  ]);
+
+  const handleCategoryChange = (category) => {
+    console.log(`Changing active category to: ${category}`);
+    setActiveCategory(category);
+  };
+
+  const [activeCategory, setActiveCategory] = useState("ALL");
 
   const completeQuest = (expValue, quest) => {
     setUserStats((prevState) => {
@@ -113,10 +157,14 @@ function App() {
       <NavBar />
       <UserPanel userStats={userStats} />
       <QuestList
+        categories={categories}
+        activeCategory={activeCategory}
         quests={quests}
         completeQuest={completeQuest}
         onDeleteQuest={deleteQuest}
+        onCategoryChange={handleCategoryChange}
       />
+
       <CompletedQuestList completedQuests={completedQuests} />
     </div>
   );
