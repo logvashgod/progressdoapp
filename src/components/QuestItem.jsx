@@ -4,9 +4,10 @@ import MyButton from "./UI/MyButton";
 function QuestItem({ quest, completeQuest, onDeleteQuest }) {
   return (
     <div className="col-md-4 mb-4">
-      {" "}
-      {/* Каждая карта будет занимать 4 колонки на больших экранах */}
-      <div className="bg-secondary bg-gradient border  card rounded">
+      <div
+        className="bg-secondary bg-gradient border card rounded position-relative"
+        style={{ width: "30rem" }}
+      >
         <div className="card-body">
           <h5 className="card-title">{quest.title}</h5>
           <hr />

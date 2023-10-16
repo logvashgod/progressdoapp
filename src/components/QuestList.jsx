@@ -20,9 +20,6 @@ function QuestList({
         categories={categories}
         activeCategory={activeCategory}
         onCategoryChange={onCategoryChange}
-        style={{
-          display: categories && categories.length > 0 ? "block" : "none",
-        }}
       />
       {filteredQuests.length > 0 ? (
         <div className="row">

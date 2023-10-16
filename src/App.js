@@ -4,6 +4,7 @@ import QuestList from "./components/QuestList";
 import UserPanel from "./components/UI/UserPanel";
 import NavBar from "./components/UI/NavBar";
 import CompletedQuestList from "./components/CompletedQuestList";
+import Reloader from "./components/Reloader";
 
 // Функция для сохранения данных в локальное хранилище
 function saveToLocalStorage(key, data) {
@@ -26,49 +27,132 @@ function App() {
     initialQuests || [
       {
         id: Math.floor(Math.random() * 1000),
-        title: "Выпить кофе",
-        body: "Ммм... Вкусное кофе",
-        expValue: 50,
-        category: "Frontend",
+        title: "Купить новую подушку",
+        body: "Выбрать удобную подушку и купить ее",
+        expValue: 25,
+        category: "Glava I",
         completedDate: null,
       },
       {
         id: Math.floor(Math.random() * 1000),
-        title: "Продолжить изучать React",
-        body: "Практиковаться в React",
+        title: "Купить и установить материнскую плату",
+        body: "Подобрать и купить новую материнскую плату, затем установить ее в компьютер",
+        expValue: 250,
+        category: "Glava I",
+        completedDate: null,
+      },
+      {
+        id: Math.floor(Math.random() * 1000),
+        title: "Пойти к доктору",
+        body: "Записаться на прием к врачу и посетить его",
+        expValue: 20,
+        category: "Glava I",
+        completedDate: null,
+      },
+      {
+        id: Math.floor(Math.random() * 1000),
+        title: "Получить больничный",
+        body: "Получить больничный лист от врача",
         expValue: 30,
-        category: "Frontend",
+        category: "Glava I",
         completedDate: null,
       },
       {
         id: Math.floor(Math.random() * 1000),
-        title: "Изучить новые CSS техники",
-        body: "Попробовать Flexbox и Grid",
-        expValue: 40,
-        category: "Frontend",
+        title: "Написать психологу",
+        body: "Записаться на консультацию у психолога и написать ему письмо",
+        expValue: 35,
+        category: "Glava I",
         completedDate: null,
       },
       {
         id: Math.floor(Math.random() * 1000),
-        title: "Решить задачи на LeetCode",
-        body: "Улучшить алгоритмические навыки",
-        expValue: 60,
-        category: "Algorithms",
+        title: "Изучить рынок",
+        body: "Провести анализ финансового рынка",
+        expValue: 20,
+        category: "Where's Money",
         completedDate: null,
       },
       {
         id: Math.floor(Math.random() * 1000),
-        title: "Пройти курс по Node.js",
-        body: "Углубить знания о Node.js",
-        expValue: 70,
-        category: "Backend",
+        title: "Выделить деньги для инвестиций",
+        body: "Решить, сколько денег выделить для инвестиций",
+        expValue: 20,
+        category: "Where's Money",
+        completedDate: null,
+      },
+      {
+        id: Math.floor(Math.random() * 1000),
+        title: "Купить акции",
+        body: "Выбрать компанию и купить акции",
+        expValue: 20,
+        category: "Where's Money",
+        completedDate: null,
+      },
+      {
+        id: Math.floor(Math.random() * 1000),
+        title: "Купить акции (сложное)",
+        body: "Выбрать компанию и купить акции (сложное)",
+        expValue: 300,
+        category: "Where's Money",
+        completedDate: null,
+      },
+      {
+        id: Math.floor(Math.random() * 1000),
+        title: "Выбрать банк для инвестирования",
+        body: "Найти подходящий банк для инвестиций",
+        expValue: 20,
+        category: "Where's Money",
+        completedDate: null,
+      },
+      {
+        id: Math.floor(Math.random() * 1000),
+        title: "Положить депозит",
+        body: "Открыть депозит в выбранном банке",
+        expValue: 20,
+        category: "Where's Money",
+        completedDate: null,
+      },
+      {
+        id: Math.floor(Math.random() * 1000),
+        title: "Положить депозит (сложное)",
+        body: "Открыть депозит в выбранном банке (сложное)",
+        expValue: 300,
+        category: "Where's Money",
+        completedDate: null,
+      },
+      {
+        id: Math.floor(Math.random() * 1000),
+        title: "Выделить деньги для инвестиций (повтор)",
+        body: "Решить, сколько денег выделить для инвестиций (повтор)",
+        expValue: 20,
+        category: "Where's Money",
+        completedDate: null,
+      },
+      {
+        id: Math.floor(Math.random() * 1000),
+        title: "Выделить деньги для инвестиций (повтор, сложное)",
+        body: "Решить, сколько денег выделить для инвестиций (повтор, сложное)",
+        expValue: 300,
+        category: "Where's Money",
         completedDate: null,
       },
     ]
   );
 
   const addQuest = () => {
-    const newQuest = {};
+    const newQuest = {
+      id: Math.floor(Math.random() * 1000),
+      title: "Новый квест", // Задайте заголовок нового квеста
+      body: "Описание нового квеста", // Задайте описание нового квеста
+      expValue: 20, // Укажите количество опыта, которое дает новый квест
+      category: "Глава I", // Задайте категорию нового квеста
+      completedDate: null,
+    };
+
+    if (!quests.some((quest) => quest.id === newQuest.id)) {
+      setQuests((prevQuests) => [...prevQuests, newQuest]);
+    }
   };
 
   const [completedQuests, setCompletedQuests] = useState(
@@ -85,9 +169,11 @@ function App() {
 
   const [categories, setCategories] = useState([
     "ALL",
-    "Frontend",
-    "Backend",
-    "Algorithms",
+    "Glava I",
+    "Front",
+    "Where's Money",
+    "S Diplomacy",
+    "Android",
   ]);
 
   const handleCategoryChange = (category) => {
@@ -164,6 +250,7 @@ function App() {
         onDeleteQuest={deleteQuest}
         onCategoryChange={handleCategoryChange}
       />
+      <Reloader addQuest={addQuest} />
 
       <CompletedQuestList completedQuests={completedQuests} />
     </div>

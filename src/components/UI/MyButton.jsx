@@ -7,7 +7,7 @@ function MyButton({ completeQuest, onDeleteQuest, expValue, quest }) {
   };
 
   return (
-    <button className="btn btn-outline-light" onClick={handleOnClick}>
+    <button className="btn btn-warning" onClick={handleOnClick}>
       Done!
     </button>
   );
