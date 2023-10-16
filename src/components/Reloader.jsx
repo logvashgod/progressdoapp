@@ -1,7 +1,11 @@
 import React from "react";
 
 function Reloader({ addQuest }) {
-  return <button onClick={addQuest}>Reload</button>;
+  return (
+    <button className="btn btn-danger" onClick={addQuest}>
+      Reload
+    </button>
+  );
 }
 
 export default Reloader;

@@ -12,9 +12,9 @@ function UserPanel({ userStats }) {
           <div className="bg-light bg-gradient p-4 text-center border rounded">
             <b>Your stats</b>
             <h1>Lv. {userStats.level}</h1>
-            <h2>
+            <h3>
               XP: {userStats.experience} of {userStats.experienceNeed}
-            </h2>
+            </h3>
             <div className="container">
               <div className="progress">
                 <div
