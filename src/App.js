@@ -6,24 +6,33 @@ import NavBar from "./components/UI/NavBar";
 import CompletedQuestList from "./components/CompletedQuestList";
 import Reloader from "./components/Reloader";
 
-// Функция для сохранения данных в локальное хранилище
 function saveToLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
-// Функция для загрузки данных из локального хранилища
 function loadFromLocalStorage(key) {
   const data = localStorage.getItem(key);
   return data ? JSON.parse(data) : null;
 }
 
 function App() {
-  // Загрузка данных из локального хранилища при запуске приложения
+  // loading from localstorage
   const initialQuests = loadFromLocalStorage("quests");
   const initialCompletedQuests = loadFromLocalStorage("completedQuests");
   const initialUserStats = loadFromLocalStorage("userStats");
 
-  const [quests, setQuests] = useState(initialQuests || []);
+  const [quests, setQuests] = useState(
+    initialQuests || [
+      {
+        id: Math.floor(Math.random() * 1000),
+        title: "Купить новую подушку",
+        body: "Выбрать удобную подушку и купить ее",
+        expValue: 25,
+        category: "Glava I",
+        completedDate: null,
+      },
+    ]
+  );
 
   const addQuest = () => {
     const newQuest = {};
